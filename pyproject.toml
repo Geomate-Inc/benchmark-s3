@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "benchmark-s3"
+version = "0.1.0"
+description = "a benchmark for s3"
+authors = ["Amir"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+snakeviz = "^2.2.0"
+boto3 = "^1.34.134"
+ultralytics = "^8.2.45"
+numpy = "^1.0.0"
+opencv-python = "^4.10.0.84"
+
+
+[tool.poetry.group.dev.dependencies]
+boto3-stubs = "^1.34.134"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
