@@ -3,29 +3,23 @@ import boto3
 from ultralytics import YOLO
 from scenario_a import scenario_A
 from scenario_b import scenario_B
-from scenario_c import scenario_C
+from utils import create_s3_session
 
 
 def main():
-    access_key_id = os.environ.get("ACCESS_KEY_ID")
-    access_key_secret = os.environ.get("ACCESS_KEY_SECRET")
-    s3 = boto3.client(
-        "s3", aws_access_key_id=access_key_id, aws_secret_access_key=access_key_secret
-    )
-    a_prefix = "/datasets_vertical/"
-    bench_prefix = "/bench/"
-    bucket_name = ""
-    model = YOLO("yolov8n.pt")
+    session = create_s3_session()
+    s3 = session.client("s3")
+    a_prefix = "datasets_vertical/detroit-michigan-2022/city-images-SR/mar/tiles/10_percent/1250_150/"
+    bench_prefix = "bench"
+    bucket_name = "geomate-data-repo-dev"
 
-    exit()
-
-    scenario_A(s3=s3, bucket_name=bucket_name, model=model, prefix=a_prefix)
+    scenario_A(s3=s3, bucket_name=bucket_name, prefix=a_prefix)
 
     scenario_B(
-        s3=s3, bucket_name=bucket_name, prefix=bench_prefix, tar_name="detroit.tar"
-    )
-    scenario_C(
-        s3=s3, bucket_name=bucket_name, prefix=bench_prefix, tar_gz_name="detroit.tar"
+        s3=s3,
+        bucket_name=bucket_name,
+        prefix=bench_prefix,
+        tar_name="detroit.tar",
     )
 
 
