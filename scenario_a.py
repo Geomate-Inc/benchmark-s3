@@ -4,12 +4,14 @@ import cv2
 import numpy as np
 from ultralytics import YOLO
 
+from utils import process_image
+
 
 def scenario_A(
     s3: boto3.session.Session.client, bucket_name: str, prefix: str, model: YOLO
 ) -> None:
     """
-    1. downloading images straight from s3 using boto3
+    1. get images straight from s3 using boto3 and load one by one in memory and infer
     2. performing object detection
     """
     # Initialize the S3 client
@@ -28,8 +30,6 @@ def scenario_A(
 
             # Decode NumPy array to OpenCV image format
             image_cv = cv2.imdecode(image_array, cv2.IMREAD_COLOR)
+            process_image(model=model, image=image_cv)
 
-            results = model.predict(source=image_cv, save=True)
-            for result in range(results):
-                print(result)
     return
