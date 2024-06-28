@@ -1,4 +1,5 @@
 import os
+import shutil
 import boto3
 import cv2
 
@@ -39,6 +40,6 @@ def scenario_B(
 
     # clean up
     os.remove(local_download_path)
-    os.rmdir(local_extract_path)
+    shutil.rmtree(local_extract_path)
 
     return None
